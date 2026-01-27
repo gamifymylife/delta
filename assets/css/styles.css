@@ -89,4 +89,65 @@
     gap: 10px;
     align-items: flex-start;
   }
+/* ===========================
+   Header responsive nav
+   =========================== */
+
+.nav-toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 5px 0;
+  background: currentColor;
+}
+
+/* Mobile panel */
+.nav-mobile {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+}
+
+.nav-mobile a {
+  display: block;
+  padding: 10px 8px;
+  border-radius: 12px;
+}
+
+/* Breakpoint: switch to hamburger */
+@media (max-width: 900px) {
+  .nav-desktop,
+  .cta-desktop {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Header layout stacks nicer */
+  .header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Make the mobile nav span full width under header row */
+  .nav-mobile {
+    grid-column: 1 / -1;
+  }
 }

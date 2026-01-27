@@ -16,13 +16,29 @@
           <span class="brand-text">Arthur Price</span>
         </a>
 
-        <nav class="nav" aria-label="Primary">
-          <a href="projects/">Work</a>
-          <a href="about/">About</a>
-          <a href="#contact">Contact</a>
-        </nav>
+		<button class="nav-toggle" type="button"
+				aria-label="Open menu"
+				aria-controls="mobile-nav"
+				aria-expanded="false">
+		  <span class="nav-toggle-bar"></span>
+		  <span class="nav-toggle-bar"></span>
+		</button>
 
-        <a class="button button-ghost" href="projects/">View case studies</a>
+		<nav class="nav nav-desktop" aria-label="Primary">
+		  <a href="projects/">Work</a>
+		  <a href="about/">About</a>
+		  <a href="#contact">Contact</a>
+		</nav>
+
+		<a class="button button-ghost cta-desktop" href="projects/">View case studies</a>
+
+		<nav id="mobile-nav" class="nav-mobile" aria-label="Mobile" hidden>
+		  <a href="projects/">Work</a>
+		  <a href="about/">About</a>
+		  <a href="#contact">Contact</a>
+		  <a class="button" href="projects/">View case studies</a>
+		</nav>
+
       </div>
     </header>
 

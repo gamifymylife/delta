@@ -29,3 +29,24 @@
     });
   });
 })();
+
+(function () {
+  const btn = document.querySelector(".nav-toggle");
+  const panel = document.getElementById("mobile-nav");
+
+  if (!btn || !panel) return;
+
+  btn.addEventListener("click", () => {
+    const isOpen = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", String(!isOpen));
+    panel.hidden = isOpen;
+  });
+
+  // Close menu when a link is clicked
+  panel.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") {
+      btn.setAttribute("aria-expanded", "false");
+      panel.hidden = true;
+    }
+  });
+})();
