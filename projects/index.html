@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Work | Arthur Richard Meredith Price</title>
+    <meta name="description" content="Portfolio projects and case studies." />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">△</span>
+          <span class="brand-text">Arthur Price</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a class="active" href="/projects/">Work</a>
+          <a href="/about/">About</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+
+        <a class="button button-ghost" href="/#contact">Contact</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <p class="kicker">Portfolio</p>
+          <h1>Projects</h1>
+          <p class="lede">
+            Large thumbnails, minimal copy. Click through for full case studies.
+          </p>
+        </div>
+        <div class="hero-haze" aria-hidden="true"></div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="filter-row">
+            <span class="chip chip-strong" data-filter="all">All</span>
+            <span class="chip" data-filter="strategy">Strategy</span>
+            <span class="chip" data-filter="ux">UX</span>
+            <span class="chip" data-filter="systems">Systems</span>
+            <span class="chip" data-filter="gamification">Gamification</span>
+          </div>
+
+          <div class="project-grid" id="projectGrid">
+            <a class="project-tile" href="/projects/mindscape/" data-tags="strategy ux">
+              <div class="tile-thumb" style="background-image:url('/assets/img/projects/mindscape.jpg');"></div>
+              <div class="tile-overlay">
+                <h3>MINDSC△PE</h3>
+                <p>Immersive LBE positioning and repeat-visit structure.</p>
+                <div class="meta">Strategy · Experience</div>
+              </div>
+            </a>
+
+            <a class="project-tile" href="/projects/delta3/" data-tags="systems gamification">
+              <div class="tile-thumb" style="background-image:url('/assets/img/projects/delta3.jpg');"></div>
+              <div class="tile-overlay">
+                <h3>Delta³</h3>
+                <p>Approach–avoid–capability as a tension resolution engine.</p>
+                <div class="meta">Framework · Modeling</div>
+              </div>
+            </a>
+
+            <a class="project-tile" href="/projects/rcc/" data-tags="systems ux">
+              <div class="tile-thumb" style="background-image:url('/assets/img/projects/rcc.jpg');"></div>
+              <div class="tile-overlay">
+                <h3>RCC Experiments</h3>
+                <p>Holonic mismatch minimization applied to coordination.</p>
+                <div class="meta">Systems · Simulation</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year"></span> Arthur Richard Meredith Price</p>
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <a href="/about/">About</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>
