@@ -36,6 +36,16 @@
 
   if (!btn || !panel) return;
 
+  function closeMenu() {
+    btn.setAttribute("aria-expanded", "false");
+    panel.hidden = true;
+  }
+
+  function openMenu() {
+    btn.setAttribute("aria-expanded", "true");
+    panel.hidden = false;
+  }
+
   btn.addEventListener("click", () => {
     const isOpen = btn.getAttribute("aria-expanded") === "true";
     btn.setAttribute("aria-expanded", String(!isOpen));
@@ -45,8 +55,25 @@
   // Close menu when a link is clicked
   panel.addEventListener("click", (e) => {
     if (e.target.tagName === "A") {
-      btn.setAttribute("aria-expanded", "false");
-      panel.hidden = true;
+      closeMenu();
     }
+  });
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    const isOpen = btn.getAttribute("aria-expanded") === "true";
+    if (!isOpen) return;
+    if (btn.contains(e.target) || panel.contains(e.target)) return;
+    closeMenu();
+  });
+
+  // Close when resizing to desktop
+  window.addEventListener("resize", () => {
+    if (window.matchMedia("(min-width: 901px)").matches) closeMenu();
   });
 })();
