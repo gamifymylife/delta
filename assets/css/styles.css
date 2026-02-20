@@ -57,7 +57,9 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: none; }
 
-/* Subtle grid overlay like reference screenshot */
+
+/* TEST: disable fixed full-screen overlay to see if Safari URL bar collapses properly */
+/*
 body::before {
   content: "";
   position: fixed;
@@ -65,7 +67,6 @@ body::before {
   pointer-events: none;
   z-index: -1;
   background:
-    /* grid */
     repeating-linear-gradient(
       to right,
       transparent 0,
@@ -78,7 +79,6 @@ body::before {
       transparent 119px,
       var(--grid-line) 120px
     ),
-    /* stronger guides */
     repeating-linear-gradient(
       to right,
       transparent 0,
@@ -91,11 +91,12 @@ body::before {
       transparent 479px,
       var(--grid-line-strong) 480px
     ),
-    /* vignette */
     radial-gradient(1200px 900px at 30% 20%, rgba(255,255,255,0.05), transparent 60%),
     radial-gradient(1200px 900px at 70% 30%, rgba(255,255,255,0.03), transparent 60%),
     radial-gradient(900px 700px at 50% 90%, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
 }
+*/
+
 
 :focus-visible {
   outline: 2px solid rgba(124, 199, 255, 0.8);
