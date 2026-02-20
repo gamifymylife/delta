@@ -228,6 +228,15 @@ p {
 }
 .button-ghost:hover { background: rgba(255, 255, 255, 0.04); }
 
+/* iOS Safari: reduce sticky+blur weirdness */
+@supports (-webkit-touch-callout: none) {
+  .site-header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(5, 6, 10, 0.85); /* solid-ish instead of blur */
+  }
+}
+
 /* Header */
 .site-header {
   padding-top: var(--safe-top);
@@ -339,7 +348,7 @@ p {
 
 .hero, .page-hero, .project-hero {
   position: relative;
-  overflow: hidden; /* iOS Safari behaves more consistently than overflow: clip */
+  overflow: hidden; /* safer on iOS Safari */
 }
 .hero-inner {
   display: grid;
