@@ -136,7 +136,7 @@ p {
 /* Header */
 .site-header {
   padding-top: var(--safe-top);
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 20;
   background: rgba(5, 6, 10, 0.55);
