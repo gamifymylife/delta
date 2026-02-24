@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <base href="">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Work | Arthur Richard Meredith Price</title>
+    <meta name="description" content="Selected work across product design, UX/UI, art direction, and game systems." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Inter:wght@600;700;800&family=DM+Mono:wght@300;400&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Optional: improves Add to Home Screen labeling, does not change Safari URL bar -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Arthur Price">
+    <meta name="theme-color" content="#05060a">
+  </head>
+
+  <body>
+    <div class="page-wrap">
+      <header class="site-header">
+        <div class="container header-inner">
+          <a class="brand" href="">
+            <span class="brand-mark" aria-hidden="true">△</span>
+            <span class="brand-text">Arthur Price</span>
+          </a>
+
+          <button class="nav-toggle" type="button"
+                  aria-label="Open menu"
+                  aria-controls="mobile-nav"
+                  aria-expanded="false">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+
+          <nav class="nav nav-desktop" aria-label="Primary">
+            <a class="active" href="projects/">Work</a>
+            <a href="about/">About</a>
+            <a href="#contact">Contact</a>
+          </nav>
+
+          <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile" hidden>
+            <a class="active" href="projects/">Work</a>
+            <a href="about/">About</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="section">
+          <div class="container">
+            <div class="section-head">
+              <h1>Work</h1>
+              <p class="section-sub">Project highlights across product design, UX/UI, art direction, and game systems.</p>
+            </div>
+
+            <!-- Replace these cards with your full set.
+                 Keep links as projects/<slug>/ and thumbs as assets/img/projects/<folder>/001.jpg -->
+            <div class="work-grid">
+              <a class="work-card" href="projects/storycraft/">
+                <div class="thumb" style="background-image:url('assets/img/projects/storycraft/001.jpg');"></div>
+                <div class="work-info">
+                  <h3>Storycraft</h3>
+                  <p>Constraint-driven AI game creation system to improve coherence and reduce invalid outputs.</p>
+                  <div class="meta">Product Design · Art Direction · AI Systems</div>
+                </div>
+              </a>
+
+              <a class="work-card" href="projects/azarus/">
+                <div class="thumb" style="background-image:url('assets/img/projects/azarus/001.jpg');"></div>
+                <div class="work-info">
+                  <h3>Azarus</h3>
+                  <p>Interactive audience engagement experience designed for clarity, retention, and momentum.</p>
+                  <div class="meta">Product Design · UX/UI · Systems</div>
+                </div>
+              </a>
+
+              <a class="work-card" href="projects/asassinscreedrebellion/">
+                <div class="thumb" style="background-image:url('assets/img/projects/asassinscreedrebellion/001.jpg');"></div>
+                <div class="work-info">
+                  <h3>Assassins Creed Rebellion</h3>
+                  <p>Art direction and product execution across a live mobile title with complex pipelines.</p>
+                  <div class="meta">Art Direction · UX/UI · Live Ops</div>
+                </div>
+              </a>
+            </div>
+
+          </div>
+        </section>
+      </main>
+
+      <section class="section section-muted" id="contact">
+        <div class="container">
+          <div class="contact-card">
+            <div>
+              <p class="contact-label">Email</p>
+              <p class="contact-value"><a href="mailto:gamification@gmail.com">gamification@gmail.com</a></p>
+            </div>
+            <div class="contact-actions">
+              <a class="button" href="mailto:gamification@gmail.com">Email me</a>
+              <a class="button button-ghost" href="about/">About</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <p>© <span id="year"></span> Arthur Richard Meredith Price</p>
+          <div class="footer-links">
+            <a href="projects/">Work</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

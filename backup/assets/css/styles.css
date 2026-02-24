@@ -1,0 +1,334 @@
+/* ==========================================================================
+   Portfolio styles
+   iOS Safari friendly: no html/body overflow hacks, no fixed overlays
+   ========================================================================== */
+
+:root {
+  --bg: #05060a;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-2: rgba(255, 255, 255, 0.09);
+  --border: rgba(255, 255, 255, 0.12);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.68);
+  --muted-2: rgba(255, 255, 255, 0.54);
+  --accent: #7cc7ff;
+  --accent-green: #33f29a;
+
+  --grid-line: rgba(255, 255, 255, 0.06);
+  --grid-line-strong: rgba(255, 255, 255, 0.09);
+
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
+  --radius: 18px;
+  --radius-sm: 14px;
+  --container: 1100px;
+
+  --font-display: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sans-alt: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--text);
+
+  /* Grid effect implemented as normal background, not fixed pseudo-element */
+  background:
+    repeating-linear-gradient(to right, transparent 0, transparent 119px, var(--grid-line) 120px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 119px, var(--grid-line) 120px),
+    repeating-linear-gradient(to right, transparent 0, transparent 479px, var(--grid-line-strong) 480px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 479px, var(--grid-line-strong) 480px),
+    radial-gradient(1200px 900px at 30% 20%, rgba(255,255,255,0.05), transparent 60%),
+    radial-gradient(1200px 900px at 70% 30%, rgba(255,255,255,0.03), transparent 60%),
+    radial-gradient(900px 700px at 50% 90%, rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+    var(--bg);
+
+  background-attachment: scroll;
+  padding-bottom: calc(16px + var(--safe-bottom));
+}
+
+.page-wrap {
+  overflow-x: hidden; /* do NOT put overflow on html/body */
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid rgba(124, 199, 255, 0.8);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+.container {
+  width: min(var(--container), calc(100% - 80px));
+  margin-inline: auto;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5 { margin: 0 0 10px; letter-spacing: -0.02em; }
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(44px, 7vw, 104px);
+  line-height: 1.3;
+}
+h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(30px, 4.2vw, 60px);
+  line-height: 1.4;
+}
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.4;
+}
+p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.meta {
+  color: var(--muted-2);
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.active { color: var(--text); }
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: transform 120ms ease, border-color 200ms ease, background 200ms ease;
+}
+.button:hover { border-color: rgba(255, 255, 255, 0.32); transform: translateY(-1px); }
+.button:active { transform: translateY(0px) scale(0.98); }
+.button-ghost { background: transparent; border-color: rgba(255, 255, 255, 0.14); }
+.button-ghost:hover { background: rgba(255, 255, 255, 0.04); }
+
+/* Header */
+.site-header {
+  padding-top: var(--safe-top);
+  position: relative;
+  top: 0;
+  z-index: 20;
+  background: rgba(5, 6, 10, 0.55);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* iOS Safari stability: sticky + blur is often where dynamic viewport gets weird.
+   This matches the "Supercell feel" by not fighting Safari. */
+@supports (-webkit-touch-callout: none) {
+  .site-header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(5, 6, 10, 0.88);
+  }
+}
+
+.header-inner {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: var(--text);
+  font-weight: 800;
+}
+.brand-text {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: rgba(255, 255, 255, 0.50);
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+.nav a {
+  padding: 6px 8px;
+  border-radius: 12px;
+}
+.nav a:hover { background: rgba(255, 255, 255, 0.03); color: rgba(255, 255, 255, 0.72); }
+.nav a.active { color: rgba(255, 255, 255, 0.82); background: rgba(255, 255, 255, 0.03); }
+
+/* Hamburger */
+.nav-toggle {
+  display: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  color: var(--text);
+}
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 5px 0;
+  background: currentColor;
+  opacity: 0.9;
+}
+
+.nav-mobile {
+  grid-column: 1 / -1;
+  padding: 10px;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: var(--shadow);
+}
+.nav-mobile a {
+  display: block;
+  padding: 10px 10px;
+  border-radius: 12px;
+  color: var(--muted);
+}
+.nav-mobile a:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); }
+
+/* Sections */
+.section { padding: 48px 0; }
+.section-muted {
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.03));
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 22px;
+  margin-bottom: 18px;
+}
+.section-sub { max-width: 68ch; }
+
+/* Work grid */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.work-card {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+.work-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(124, 199, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+}
+.thumb {
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+.work-info { padding: 14px 14px 16px; }
+.work-info p { margin-bottom: 10px; }
+
+/* Contact */
+.contact-card {
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr;
+  align-items: end;
+  gap: 18px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: transparent;
+  padding: 24px 0;
+}
+.contact-label { margin: 0 0 2px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted-2); }
+.contact-value { margin: 0; color: var(--text); font-weight: 650; }
+.contact-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Footer */
+.site-footer {
+  padding: 28px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.footer-links { display: flex; gap: 12px; }
+.footer-links a { padding: 8px 10px; border-radius: 12px; }
+.footer-links a:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container { width: min(var(--container), calc(100% - 32px)); }
+
+  .header-inner { grid-template-columns: 1fr auto; }
+  .nav-desktop { display: none; }
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+
+  .work-grid { grid-template-columns: 1fr; }
+  .section-head { flex-direction: column; align-items: flex-start; }
+  .contact-card { grid-template-columns: 1fr; }
+  .contact-actions { width: 100%; justify-content: flex-start; }
+  .contact-actions .button { width: 100%; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}

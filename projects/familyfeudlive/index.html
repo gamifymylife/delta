@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Important: this makes nested pages behave like root pages -->
+    <base href="../../">
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Tetris Live | Arthur Richard Meredith Price</title>
+    <meta
+      name="description"
+      content="Case study: Tetris Live. UX/UI, systems design, and execution details."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Inter:wght@600;700;800&family=DM+Mono:wght@300;400&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Arthur Price" />
+    <meta name="theme-color" content="#05060a" />
+  </head>
+
+  <body>
+    <div class="page-wrap">
+      <header class="site-header">
+        <div class="container header-inner">
+          <a class="brand" href="">
+            <span class="brand-mark" aria-hidden="true">△</span>
+            <span class="brand-text">Arthur Price</span>
+          </a>
+
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+          >
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+
+          <nav class="nav nav-desktop" aria-label="Primary">
+            <a class="active" href="projects/">Work</a>
+            <a href="about/">About</a>
+            <a href="#contact">Contact</a>
+          </nav>
+
+          <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile" hidden>
+            <a class="active" href="projects/">Work</a>
+            <a href="about/">About</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <!-- HERO -->
+        <section class="section">
+          <div class="container">
+            <div class="section-head">
+              <h1>Tetris Live</h1>
+              <p class="section-sub">
+                Case study focused on UX/UI decisions, system constraints, and execution details.
+              </p>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1.35fr 0.65fr; gap:18px;">
+              <div
+                class="work-card"
+                style="grid-template-rows: auto; padding: 0; overflow: hidden;"
+                aria-label="Hero image"
+              >
+                <div
+                  class="thumb"
+                  style="background-image:url('assets/img/projects/tetrislive/001.jpg');"
+                  role="img"
+                  aria-label="Tetris Live hero"
+                ></div>
+              </div>
+
+              <div
+                class="work-card"
+                style="grid-template-rows:auto; padding: 14px 14px 16px;"
+              >
+                <h3 style="margin-bottom:8px;">At a glance</h3>
+                <p style="margin-bottom:10px;">
+                  Replace this block with the tightest possible positioning statement for the project.
+                </p>
+
+                <div class="meta" style="margin-top:8px;">
+                  Role: UX/UI · Systems · Art Direction<br />
+                  Context: Live product constraints<br />
+                  Deliverables: Flows · UI · Interaction model<br />
+                  Period: YYYY to YYYY
+                </div>
+
+                <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+                  <a class="button" href="projects/">Back to Work</a>
+                  <a class="button button-ghost" href="#gallery">View gallery</a>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:18px;" class="meta">
+              Tags: UX/UI · Live Ops · Systems · Production
+            </div>
+          </div>
+        </section>
+
+        <!-- OVERVIEW -->
+        <section class="section section-muted">
+          <div class="container">
+            <div class="section-head">
+              <h2>Overview</h2>
+              <p class="section-sub">
+                What this was, why it mattered, and what success looked like.
+              </p>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:18px;">
+              <div class="work-card" style="grid-template-rows:auto; padding: 14px 14px 16px;">
+                <h3 style="margin-bottom:8px;">Problem</h3>
+                <p>
+                  State the core constraint, tension, or failure mode you were fixing. One paragraph max.
+                </p>
+              </div>
+
+              <div class="work-card" style="grid-template-rows:auto; padding: 14px 14px 16px;">
+                <h3 style="margin-bottom:8px;">Goal</h3>
+                <p>
+                  Define what “better” meant in measurable or observable terms. Keep it concrete.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- APPROACH -->
+        <section class="section">
+          <div class="container">
+            <div class="section-head">
+              <h2>Approach</h2>
+              <p class="section-sub">
+                The decisions you made and why. Focus on tradeoffs, not fluff.
+              </p>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr; gap:18px;">
+              <div class="work-card" style="grid-template-rows:auto; padding: 14px 14px 16px;">
+                <h3 style="margin-bottom:8px;">1) Constraints</h3>
+                <p>
+                  List the hard constraints. Platform, tech, cadence, stakeholders, timelines, pipelines.
+                </p>
+                <div class="meta">
+                  Example: iOS Safari quirks · Live event cadence · Legacy UI debt · Narrow art budget
+                </div>
+              </div>
+
+              <div class="work-card" style="grid-template-rows:auto; padding: 14px 14px 16px;">
+                <h3 style="margin-bottom:8px;">2) Key design moves</h3>
+                <p>
+                  Bullet the moves that actually changed the outcome. Avoid vague words like “improved.”
+                </p>
+                <ul style="margin: 10px 0 0; padding-left: 18px; color: rgba(255,255,255,0.68);">
+                  <li>Reduced cognitive load by restructuring navigation into fewer primary actions.</li>
+                  <li>Normalized layout rhythm and spacing for scanability and speed.</li>
+                  <li>Clarified progression and state feedback so players always know what changed.</li>
+                </ul>
+              </div>
+
+              <div class="work-card" style="grid-template-rows:auto; padding: 14px 14px 16px;">
+                <h3 style="margin-bottom:8px;">3) Implementation notes</h3>
+                <p>
+                  Keep it “real.” What did you ship, what did you cut, what did you protect.
+                </p>
+                <div class="meta">
+                  Example: UI kit rationalization · Component reuse · Event templates · Asset naming discipline
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- OUTCOMES -->
+        <section class="section section-muted">
+          <div class="container">
+            <div class="section-head">
+              <h2>Outcomes</h2>
+              <p class="section-sub">
+                Results, learnings, and what you would do next if you owned another iteration.
+              </p>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:18px;">
+              <div class="work-card" style="grid-template-rows:auto; padding: 14px 14px 16px;">
+                <h3 style="margin-bottom:8px;">Impact</h3>
+                <p>
+                  Add 1 to 3 concrete outcomes. If you have no metrics, describe observable behavior change.
+                </p>
+                <div class="meta">Metric placeholders: CTR · Retention · Completion · Support tickets</div>
+              </div>
+
+              <div class="work-card" style="grid-template-rows:auto; padding: 14px 14px 16px;">
+                <h3 style="margin-bottom:8px;">What worked</h3>
+                <p>
+                  Name the highest leverage decision. The one that made everything else easier.
+                </p>
+              </div>
+
+              <div class="work-card" style="grid-template-rows:auto; padding: 14px 14px 16px;">
+                <h3 style="margin-bottom:8px;">Next</h3>
+                <p>
+                  If you had 2 more weeks, what would you attack first and why.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section class="section" id="gallery">
+          <div class="container">
+            <div class="section-head">
+              <h2>Gallery</h2>
+              <p class="section-sub">
+                Replace, reorder, or expand these. Uses your existing work card styles.
+              </p>
+            </div>
+
+            <div class="work-grid">
+              <a class="work-card" href="assets/img/projects/tetrislive/001.jpg" target="_blank" rel="noreferrer">
+                <div class="thumb" style="background-image:url('assets/img/projects/tetrislive/001.jpg');"></div>
+                <div class="work-info">
+                  <h3>Screen 01</h3>
+                  <p>Caption what matters about this screen.</p>
+                  <div class="meta">UI · Flow · State</div>
+                </div>
+              </a>
+
+              <a class="work-card" href="assets/img/projects/tetrislive/002.jpg" target="_blank" rel="noreferrer">
+                <div class="thumb" style="background-image:url('assets/img/projects/tetrislive/002.jpg');"></div>
+                <div class="work-info">
+                  <h3>Screen 02</h3>
+                  <p>Caption what matters about this screen.</p>
+                  <div class="meta">Hierarchy · Feedback</div>
+                </div>
+              </a>
+
+              <a class="work-card" href="assets/img/projects/tetrislive/003.jpg" target="_blank" rel="noreferrer">
+                <div class="thumb" style="background-image:url('assets/img/projects/tetrislive/003.jpg');"></div>
+                <div class="work-info">
+                  <h3>Screen 03</h3>
+                  <p>Caption what matters about this screen.</p>
+                  <div class="meta">Interaction · Clarity</div>
+                </div>
+              </a>
+            </div>
+
+            <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="button" href="projects/">Back to Work</a>
+              <a class="button button-ghost" href="#contact">Contact</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <section class="section section-muted" id="contact">
+        <div class="container">
+          <div class="contact-card">
+            <div>
+              <p class="contact-label">Email</p>
+              <p class="contact-value">
+                <a href="mailto:gamification@gmail.com">gamification@gmail.com</a>
+              </p>
+            </div>
+            <div class="contact-actions">
+              <a class="button" href="mailto:gamification@gmail.com">Email me</a>
+              <a class="button button-ghost" href="about/">About</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <p>© <span id="year"></span> Arthur Richard Meredith Price</p>
+          <div class="footer-links">
+            <a href="projects/">Work</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
