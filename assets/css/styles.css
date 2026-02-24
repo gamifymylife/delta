@@ -357,3 +357,12 @@ p {
   .contact-actions .button { width: 100%; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
+
+/* Case study: force stacking on mobile */
+@media (max-width: 900px) {
+  .case-2col,
+  .case-3col,
+  .case-hero {
+    grid-template-columns: 1fr !important;
+  }
+}
