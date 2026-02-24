@@ -1,1 +1,20 @@
+# Local backup folders
+backup/
 ignore_binaries/
+temp/
+test/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor junk
+.vscode/
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Logs
+*.log
