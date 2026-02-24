@@ -317,7 +317,24 @@ p {
 .footer-links a { padding: 8px 10px; border-radius: 12px; }
 .footer-links a:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); }
 
-/* Responsive */
+/* Case study layout grids */
+.case-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.case-hero {
+  grid-template-columns: 1.35fr 0.65fr;
+}
+
+.case-2col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.case-3col {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 @media (max-width: 900px) {
   .container { width: min(var(--container), calc(100% - 32px)); }
 
@@ -326,6 +343,14 @@ p {
   .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
 
   .work-grid { grid-template-columns: 1fr; }
+
+  /* Case study: collapse multi-column grids on mobile */
+  .case-hero,
+  .case-2col,
+  .case-3col {
+    grid-template-columns: 1fr;
+  }
+
   .section-head { flex-direction: column; align-items: flex-start; }
   .contact-card { grid-template-columns: 1fr; }
   .contact-actions { width: 100%; justify-content: flex-start; }
