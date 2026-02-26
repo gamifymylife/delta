@@ -27,7 +27,7 @@
     <div class="page-wrap">
       <header class="site-header">
         <div class="container header-inner">
-          <a class="brand" href="">
+          <a class="brand" href="/">
             <span class="brand-mark" aria-hidden="true">△</span>
             <span class="brand-text">Arthur Price</span>
           </a>
@@ -36,22 +36,36 @@
             class="nav-toggle"
             type="button"
             aria-label="Open menu"
-            aria-controls="mobile-nav"
+            aria-controls="site-nav-layer"
             aria-expanded="false"
           >
-            <span class="nav-toggle-icon" aria-hidden="true"></span>
+            <svg class="menuicon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 50 50" aria-hidden="true" focusable="false">
+              <g>
+                <line class="menuicon__bar" x1="13" y1="16.5" x2="37" y2="16.5"></line>
+                <line class="menuicon__bar" x1="13" y1="24.5" x2="37" y2="24.5"></line>
+                <line class="menuicon__bar" x1="13" y1="24.5" x2="37" y2="24.5"></line>
+                <line class="menuicon__bar" x1="13" y1="32.5" x2="37" y2="32.5"></line>
+                <circle class="menuicon__circle" r="23" cx="25" cy="25"></circle>
+              </g>
+            </svg>
           </button>
 
-          <nav class="nav nav-desktop" aria-label="Primary">
+          <nav class="nav nav-desktop mono" aria-label="Primary">
             <a class="active" href="/projects/">Work</a>
             <a href="/about/">About</a>
             <a href="/#contact">Contact</a>
           </nav>
+        </div>
 
-          <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile" hidden>
-            <a class="active" href="projects/">Work</a>
-            <a href="about/">About</a>
-            <a href="#contact">Contact</a>
+        <!-- Mobile menu layer -->
+        <div id="site-nav-layer" class="nav-layer" aria-hidden="true">
+          <button class="nav-scrim" type="button" aria-label="Close menu"></button>
+          <div class="nav-splash" aria-hidden="true"></div>
+
+          <nav class="nav-mobile mono" aria-label="Mobile">
+            <a class="nav-link active" href="/projects/">Work</a>
+            <a class="nav-link" href="/about/">About</a>
+            <a class="nav-link" href="/#contact">Contact</a>
           </nav>
         </div>
       </header>
