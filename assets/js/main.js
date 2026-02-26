@@ -36,43 +36,48 @@
 
   if (!btn || !panel) return;
 
-  function closeMenu() {
-    btn.setAttribute("aria-expanded", "false");
-    panel.hidden = true;
+  function isOpen() {
+    return btn.getAttribute("aria-expanded") === "true";
   }
 
   function openMenu() {
+    document.body.classList.add("nav-open");
     btn.setAttribute("aria-expanded", "true");
+    btn.setAttribute("aria-label", "Close menu");
     panel.hidden = false;
+
+    const firstLink = panel.querySelector("a");
+    if (firstLink) firstLink.focus();
+  }
+
+  function closeMenu() {
+    document.body.classList.remove("nav-open");
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", "Open menu");
+    panel.hidden = true;
+
+    btn.focus();
   }
 
   btn.addEventListener("click", () => {
-    const isOpen = btn.getAttribute("aria-expanded") === "true";
-    btn.setAttribute("aria-expanded", String(!isOpen));
-    panel.hidden = isOpen;
+    isOpen() ? closeMenu() : openMenu();
   });
 
-  // Close menu when a link is clicked
   panel.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
-      closeMenu();
-    }
+    const link = e.target.closest("a");
+    if (link) closeMenu();
   });
 
-  // Close on Escape
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeMenu();
+    if (e.key === "Escape" && isOpen()) closeMenu();
   });
 
-  // Close when clicking outside
   document.addEventListener("click", (e) => {
-    const isOpen = btn.getAttribute("aria-expanded") === "true";
-    if (!isOpen) return;
+    if (!isOpen()) return;
     if (btn.contains(e.target) || panel.contains(e.target)) return;
     closeMenu();
   });
 
-  // Close when resizing to desktop
   window.addEventListener("resize", () => {
     if (window.matchMedia("(min-width: 901px)").matches) closeMenu();
   });

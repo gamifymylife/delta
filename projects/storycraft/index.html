@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Important: this makes nested pages behave like root pages -->
-    <base href="../../">
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -18,7 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Inter:wght@600;700;800&family=DM+Mono:wght@300;400&family=DM+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Arthur Price" />
@@ -41,14 +39,13 @@
             aria-controls="mobile-nav"
             aria-expanded="false"
           >
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-icon" aria-hidden="true"></span>
           </button>
 
           <nav class="nav nav-desktop" aria-label="Primary">
-            <a class="active" href="projects/">Work</a>
-            <a href="about/">About</a>
-            <a href="#contact">Contact</a>
+            <a class="active" href="/projects/">Work</a>
+            <a href="/about/">About</a>
+            <a href="/#contact">Contact</a>
           </nav>
 
           <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile" hidden>
@@ -78,11 +75,10 @@
               >
                 <div
                   class="thumb"
-                  style="background-image:url('assets/img/projects/storycraft/splash_sc.webp');"
+                  style="background-image:url('/assets/img/projects/storycraft/splash_sc.webp');"
                   role="img"
                   aria-label="Tetris Live hero"
                 ></div>
-              </div>
 
 
               <div
@@ -102,7 +98,7 @@
                 </div>
 
                 <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-                  <a class="button" href="projects/">Back to Work</a>
+                  <a class="button" href="/projects/">Back to Work</a>
                   <a class="button button-ghost" href="#gallery">View gallery</a>
                 </div>
               </div>
@@ -228,6 +224,6 @@
       </footer>
     </div>
 
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
   </body>
 </html>
