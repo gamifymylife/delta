@@ -42,24 +42,12 @@ body {
   color: var(--text);
   background: var(--bg);
 }
-/* iOS safe-area handling */
-:root {
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-}
-
-/* Prevent Safari bottom bar from covering content */
-body {
-  padding-bottom: calc(14px + var(--safe-bottom));
-}
 
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: none; }
 
-
-/* TEST: disable fixed full-screen overlay to see if Safari URL bar collapses properly */
-/*
+/* Subtle grid overlay like reference screenshot */
 body::before {
   content: "";
   position: fixed;
@@ -67,6 +55,7 @@ body::before {
   pointer-events: none;
   z-index: -1;
   background:
+    /* grid */
     repeating-linear-gradient(
       to right,
       transparent 0,
@@ -79,6 +68,7 @@ body::before {
       transparent 119px,
       var(--grid-line) 120px
     ),
+    /* stronger guides */
     repeating-linear-gradient(
       to right,
       transparent 0,
@@ -91,12 +81,11 @@ body::before {
       transparent 479px,
       var(--grid-line-strong) 480px
     ),
+    /* vignette */
     radial-gradient(1200px 900px at 30% 20%, rgba(255,255,255,0.05), transparent 60%),
     radial-gradient(1200px 900px at 70% 30%, rgba(255,255,255,0.03), transparent 60%),
     radial-gradient(900px 700px at 50% 90%, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
 }
-*/
-
 
 :focus-visible {
   outline: 2px solid rgba(124, 199, 255, 0.8);
@@ -105,12 +94,8 @@ body::before {
 }
 
 .container {
-  width: min(var(--container), calc(100% - 32px));
+  width: min(var(--container), calc(100% - 80px));
   margin-inline: auto;
-}
-
-@media (min-width: 901px) {
-  .container { width: min(var(--container), calc(100% - 80px)); }
 }
 
 /* Typography */
@@ -232,18 +217,8 @@ p {
 }
 .button-ghost:hover { background: rgba(255, 255, 255, 0.04); }
 
-/* iOS Safari: reduce sticky+blur weirdness */
-@supports (-webkit-touch-callout: none) {
-  .site-header {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: rgba(5, 6, 10, 0.85); /* solid-ish instead of blur */
-  }
-}
-
 /* Header */
 .site-header {
-  padding-top: var(--safe-top);
   position: sticky;
   top: 0;
   z-index: 20;
@@ -350,9 +325,10 @@ p {
 .nav-mobile a:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); }
 .nav-mobile .button { width: 100%; margin-top: 8px; }
 
+/* Hero / page hero */
 .hero, .page-hero, .project-hero {
   position: relative;
-  overflow: hidden; /* safer on iOS Safari */
+  overflow: clip;
 }
 .hero-inner {
   display: grid;
@@ -435,7 +411,7 @@ p {
 /* Home featured cards */
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 .work-card {
@@ -467,7 +443,7 @@ p {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 .project-tile {
@@ -507,7 +483,7 @@ p {
 
 .project-meta {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   margin-top: 18px;
 }
@@ -537,7 +513,7 @@ p {
 .prose ul { margin: 10px 0 0 18px; padding: 0; }
 .image-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   margin: 18px 0;
 }
@@ -553,7 +529,7 @@ p {
 
 .outcomes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin-top: 10px;
 }
@@ -628,7 +604,13 @@ p {
   .hero-inner { grid-template-columns: 1fr; padding: 56px 0 12px; gap: 18px; }
   .lede { font-size: 16px; }
 
+  .work-grid { grid-template-columns: 1fr; }
+  .project-grid { grid-template-columns: 1fr; }
+
   .section-head { flex-direction: column; align-items: flex-start; }
+  .project-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .image-row { grid-template-columns: 1fr; }
+  .outcomes { grid-template-columns: 1fr; }
 
   .contact-card { grid-template-columns: 1fr; }
   .contact-actions { width: 100%; justify-content: flex-start; }
