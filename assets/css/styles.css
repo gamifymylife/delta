@@ -264,16 +264,51 @@ p {
   gap: 12px;
   min-width: 0;
 }
-.brand-mark {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  color: var(--text);
-  font-weight: 800;
+/* Replace △ with an SVG logo */
+.brand-logo {
+  display: block;
+  height: 44px;   /* tweak if needed */
+  width: auto;
+}
+
+/* Make the header feel like the reference on mobile */
+@media (max-width: 900px) {
+  .site-header {
+    background: rgba(5, 6, 10, 0.92);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .header-inner {
+    padding: 16px 0; /* slightly tighter */
+  }
+
+  /* Reference image shows logo only on mobile */
+  .brand-text {
+    display: none;
+  }
+
+  .brand-logo {
+    height: 44px; /* slightly larger for mobile */
+  }
+
+  /* Ensure hamburger stays clean: no button chrome */
+  .nav-toggle {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .nav-toggle:active,
+  .nav-toggle:hover {
+    background: transparent;
+  }
 }
 .brand-text {
   font-family: var(--font-heading);
@@ -313,42 +348,136 @@ p {
   color: rgba(51, 242, 154, 1);
 }
 
-/* Hamburger */
 .nav-toggle {
   display: none;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
-  padding: 10px;
-  border-radius: 14px;
+  position: relative;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
   cursor: pointer;
   color: var(--text);
 }
-.nav-toggle:hover { border-color: rgba(255, 255, 255, 0.20); }
-.nav-toggle-bar {
+
+.nav-toggle:hover {
+  border: 0;
+  background: transparent;
+}
+
+.nav-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 26px;
+  height: 26px;
   display: block;
-  width: 22px;
-  height: 2px;
-  margin: 5px 0;
-  background: currentColor;
-  opacity: 0.9;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+/* Hide X by default */
+.nav-icon-close {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-icon-menu {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-icon-close {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* Overlay mobile menu layer (matches: .nav-layer#mobile-nav in your HTML) */
+.nav-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+
+  /* Force a clean stacking context so z-index is predictable */
+  isolation: isolate;
+}
+
+.nav-layer.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-splash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  pointer-events: none;
+  background: radial-gradient(900px 700px at 30% 20%, rgba(255,255,255,0.05), transparent 60%);
+  opacity: 0.6;
+}
+
+.nav-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  border: 0;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 0;
 }
 
 .nav-mobile {
-  grid-column: 1 / -1;
-  padding: 10px;
+  position: absolute;
+  z-index: 2;
+
+  top: calc(var(--safe-top) + 74px);
+  left: 16px;
+  right: 16px;
+
+  padding: 12px;
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(5, 6, 10, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.10);
   box-shadow: var(--shadow);
+
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: transform 180ms ease, opacity 180ms ease;
 }
-.nav-mobile a {
+
+/* Animate panel in when layer opens */
+.nav-layer.is-open .nav-mobile {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.nav-mobile .nav-link {
   display: block;
-  padding: 10px 10px;
+  padding: 12px 10px;
   border-radius: 12px;
   color: var(--muted);
 }
-.nav-mobile a:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); }
-.nav-mobile .button { width: 100%; margin-top: 8px; }
+
+.nav-mobile .nav-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-layer,
+  .nav-mobile,
+  .nav-icon {
+    transition: none;
+  }
+}
 
 .hero, .page-hero, .project-hero {
   position: relative;
@@ -440,7 +569,7 @@ p {
 }
 .work-card {
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr; /* thumb sizes itself, text fills remaining */
   border-radius: var(--radius);
   border: 1px solid rgba(255, 255, 255, 0.10);
   background: rgba(255, 255, 255, 0.04);
@@ -454,9 +583,10 @@ p {
 }
 .thumb {
   aspect-ratio: 16 / 9;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
-  background-color: rgba(255, 255, 255, 0.06);
+  background-repeat: no-repeat;
+  background-color: #05060a;
 }
 .work-info { padding: 14px 14px 16px; }
 .work-info p { margin-bottom: 10px; }

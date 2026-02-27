@@ -26,11 +26,7 @@
       <header class="site-header" data-header>
         <div class="container header-inner">
           <a class="brand" href="">
-            <img
-              class="brand-logo"
-              src="assets/img/RobotArmy_Logo.svg"
-              alt="Robot Army"
-            />
+            <span class="brand-mark" aria-hidden="true">△</span>
             <span class="brand-text">Arthur Price</span>
           </a>
 
@@ -40,24 +36,30 @@
             <a href="#contact">Contact</a>
           </nav>
 
-          <button
-            class="nav-toggle"
-            type="button"
-            aria-label="Toggle menu"
-            aria-controls="mobile-nav"
-            aria-expanded="false"
-          >
-            <img class="nav-icon nav-icon-menu" src="assets/img/mobilemenu_default.svg" alt="" aria-hidden="true">
-            <img class="nav-icon nav-icon-close" src="assets/img/mobilemenu_open.svg" alt="" aria-hidden="true">
+          <button class="nav-toggle" type="button"
+                  aria-label="Toggle menu"
+                  aria-controls="mobile-nav"
+                  aria-expanded="false">
+            <img class="nav-icon nav-icon-menu" src="../../assets/img/mobilemenu_default.svg" alt="" aria-hidden="true">
+            <img class="nav-icon nav-icon-close" src="../../assets/img/mobilemenu_open.svg" alt="" aria-hidden="true">
           </button>
         </div>
       </header>
 
-      <!-- ONE universal mobile menu layer. JS fills links by cloning .nav-desktop -->
+      <!-- Mobile menu layer -->
       <div class="nav-layer" id="mobile-nav" aria-hidden="true">
-        <button class="nav-scrim" type="button" aria-label="Close menu" tabindex="-1"></button>
         <div class="nav-splash" aria-hidden="true"></div>
-        <nav class="nav-mobile" aria-label="Mobile"></nav>
+
+        <nav class="nav-mobile" aria-label="Mobile">
+          <a class="nav-link active" href="../">Work</a>
+          <a class="nav-link" href="../../about/">About</a>
+          <a class="nav-link" href="../../#contact">Contact</a>
+        </nav>
+
+        <button class="nav-scrim" type="button" aria-label="Close menu" tabindex="-1"></button>
+      </div>
+
+        <button class="nav-scrim" type="button" aria-label="Close menu" tabindex="-1"></button>
       </div>
 
       <main>
