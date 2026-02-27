@@ -65,12 +65,14 @@
     btn.setAttribute("aria-expanded", "true");
     layer.classList.add("is-open");
     layer.setAttribute("aria-hidden", "false");
+    document.body.classList.add("menu-open");
   }
 
   function closeMenu() {
     btn.setAttribute("aria-expanded", "false");
     layer.classList.remove("is-open");
     layer.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("menu-open");
   }
 
   btn.addEventListener("click", () => {
@@ -78,8 +80,12 @@
     else openMenu();
   });
 
+ es
   // Click scrim closes
   scrim.addEventListener("click", closeMenu);
+
+  // iOS + touch devices: close immediately on touch/pointer contact too
+  scrim.addEventListener("pointerdown", closeMenu);
 
   // Clicking a nav link closes
   mobileNav.addEventListener("click", (e) => {
