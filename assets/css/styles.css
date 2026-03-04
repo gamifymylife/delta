@@ -732,17 +732,14 @@ body.menu-open .site-header {
 #contact .section-head { display: none; }
 #contact .contact-label { display: none; }
 #contact .contact-value {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(24px, 4.2vw, 60px);
-  line-height: 1.4;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800; /* try 800 first */
+  font-size: clamp(18px, 5.5vw, 60px); /* smaller minimum fixes mobile */
+  line-height: 1.15;                  /* tighter for big type */
   color: rgba(255, 255, 255, 0.92);
-
-  /* keep it readable, but never overflow */
   max-width: 34ch;
-  width: 100%;
 
-  /* critical: allow long emails to wrap on mobile */
+  /* critical: stop overflow from long emails */
   overflow-wrap: anywhere;
   word-break: break-word;
 }
@@ -790,6 +787,18 @@ body.menu-open .site-header {
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
 
+@media (max-width: 900px) {
+  #contact .contact-value {
+    font-size: 21px;   /* or 22px if you want tighter */
+    line-height: 1.2;
+    max-width: 100%;
+  }
+}
+
+#contact .contact-value a {
+  display: inline-block;
+  max-width: 100%;
+}
 .button {
   position: relative;
   display: inline-flex;
