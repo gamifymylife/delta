@@ -567,16 +567,6 @@ body.menu-open .site-header {
 .section-sub { max-width: 68ch; }
 .section-actions { margin-top: 18px; }
 
-/* Project hero: always stack title + subcopy */
-.section-head.section-head-stack {
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.section-head.section-head-stack .section-sub {
-  max-width: 68ch; /* keep your existing readable line length */
-}
-
 /* Home featured cards */
 .work-grid {
   display: grid;
@@ -722,29 +712,22 @@ body.menu-open .site-header {
   border-radius: var(--radius);
   border: 1px solid rgba(255, 255, 255, 0.10);
   background: transparent;
-  padding: 24px;
+  padding: 24px 0;
 }
 .contact-label { margin: 0 0 2px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted-2); }
 .contact-value { margin: 0; color: var(--text); font-weight: 650; }
 .contact-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
-/* Big contact statement */
+/* Big contact statement like reference screenshot */
 #contact .section-head { display: none; }
 #contact .contact-label { display: none; }
 #contact .contact-value {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(24px, 4.2vw, 60px);
+  font-size: clamp(34px, 4.2vw, 60px);
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.92);
-
-  /* keep it readable, but never overflow */
   max-width: 34ch;
-  width: 100%;
-
-  /* critical: allow long emails to wrap on mobile */
-  overflow-wrap: anywhere;
-  word-break: break-word;
 }
 #contact .contact-value a { color: inherit; }
 #contact .contact-actions { justify-content: flex-end; }
