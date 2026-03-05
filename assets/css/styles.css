@@ -564,7 +564,7 @@ body.menu-open .site-header {
   gap: 22px;
   margin-bottom: 18px;
 }
-.section-sub { max-width: 68ch; }
+.section-sub { width: 100%; max-width: none; }
 .section-actions { margin-top: 18px; }
 
 /* Project hero: always stack title + subcopy */
@@ -574,7 +574,8 @@ body.menu-open .site-header {
 }
 
 .section-head.section-head-stack .section-sub {
-  max-width: 68ch; /* keep your existing readable line length */
+  width: 100%;
+  max-width: none;
 }
 
 /* Home featured cards */
