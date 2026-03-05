@@ -816,6 +816,16 @@ body.menu-open .site-header {
   will-change: transform;
 }
 
+.hero-video {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  display: block;
+}
+
+
+
 .button::before {
   content: "";
   position: absolute;
