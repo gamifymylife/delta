@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RCC ASCII Holonic Field</title>
+  <style>
+    :root {
+      --bg: #05070a;
+      --fg: #d7dde6;
+      --muted: #7d8796;
+      --accent: #9fe7c4;
+      --panel: rgba(9, 13, 18, 0.76);
+      --border: rgba(255,255,255,0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100dvh;
+      min-height: 100dvh;
+      background: var(--bg);
+      overflow: hidden;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--fg);
+    }
+
+    #screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100dvh;
+      margin: 0;
+      padding: 10px 12px;
+      white-space: pre;
+      overflow: hidden;
+      user-select: none;
+      pointer-events: none;
+      font-family: "JetBrains Mono", "IBM Plex Mono", "Fira Code", monospace;
+      font-size: 11px;
+      line-height: 10px;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(159,231,196,0.03), transparent 40%),
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.02), transparent 30%),
+        var(--bg);
+    }
+
+    .hud {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 10;
+      width: min(360px, calc(100vw - 28px));
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      padding: 14px 14px 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    .hud h1 {
+      margin: 0 0 6px;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .hud p {
+      margin: 0 0 12px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 64px 1fr 44px;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .row output {
+      text-align: right;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .legend span strong {
+      color: var(--fg);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      margin-right: 4px;
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 680px) {
+      #screen {
+        font-size: 7px;
+        line-height: 7px;
+        letter-spacing: 0;
+        padding: 6px;
+      }
+      .hud {
+        width: calc(100vw - 20px);
+        top: 10px;
+        left: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hud">
+    <h1>RCC ASCII Holonic Field</h1>
+    <p>Mouse hover injects exogenous disturbance. Idle state stays slightly mixed and slowly undulates instead of settling cleanly.</p>
+
+    <label class="row">
+      <span>alpha</span>
+      <input id="alpha" type="range" min="0.01" max="0.18" step="0.005" value="0.065" />
+      <output id="alphaOut">0.065</output>
+    </label>
+
+    <label class="row">
+      <span>q</span>
+      <input id="q" type="range" min="0.02" max="0.24" step="0.005" value="0.11" />
+      <output id="qOut">0.110</output>
+    </label>
+
+    <label class="row">
+      <span>mix</span>
+      <input id="mix" type="range" min="0.02" max="0.24" step="0.005" value="0.09" />
+      <output id="mixOut">0.090</output>
+    </label>
+
+    <div class="legend">
+      <span><strong>.</strong> coherent</span>
+      <span><strong>~</strong> circulation</span>
+      <span><strong>O</strong> boundary stress</span>
+      <span><strong>@</strong> incoherence spike</span>
+    </div>
+
+    <div class="footer-note">Each glyph is rendered from a coupled internal/external micro-state, not from a generic wallpaper field.</div>
+  </div>
+
+  <pre id="screen"></pre>
+
+  <script>
+    const screen = document.getElementById('screen');
+    const alphaInput = document.getElementById('alpha');
+    const qInput = document.getElementById('q');
+    const mixInput = document.getElementById('mix');
+    const alphaOut = document.getElementById('alphaOut');
+    const qOut = document.getElementById('qOut');
+    const mixOut = document.getElementById('mixOut');
+
+    let alpha = Number(alphaInput.value);
+    let q = Number(qInput.value);
+    let mix = Number(mixInput.value);
+
+    let cellW = 8;
+    let cellH = 8;
+    let cols = 0;
+    let rows = 0;
+
+    function measureCell() {
+      const probe = document.createElement('span');
+      probe.textContent = 'M';
+      probe.style.position = 'absolute';
+      probe.style.visibility = 'hidden';
+      probe.style.whiteSpace = 'pre';
+      probe.style.fontFamily = getComputedStyle(screen).fontFamily;
+      probe.style.fontSize = getComputedStyle(screen).fontSize;
+      probe.style.lineHeight = getComputedStyle(screen).lineHeight;
+      probe.style.letterSpacing = getComputedStyle(screen).letterSpacing;
+      document.body.appendChild(probe);
+
+      const rect = probe.getBoundingClientRect();
+      cellW = Math.max(1, rect.width);
+      cellH = Math.max(1, rect.height);
+      document.body.removeChild(probe);
+    }
+
+    let I = [];
+    let E = [];
+    let nextI = [];
+    let nextE = [];
+
+    const pointer = {
+      x: 0,
+      y: 0,
+      active: false,
+      intensity: 0,
+      vx: 0,
+      vy: 0,
+      lastX: 0,
+      lastY: 0,
+    };
+
+    const dirChars = ['→','↗','↑','↖','←','↙','↓','↘'];
+    const densityChars = ['.', ',', '-', '~', '=', '+', 'o', 'O', '@'];
+
+    function idx(x, y) {
+      return y * cols + x;
+    }
+
+    function wrapX(x) {
+      return (x + cols) % cols;
+    }
+
+    function wrapY(y) {
+      return (y + rows) % rows;
+    }
+
+    function rand(seed) {
+      const s = Math.sin(seed * 12.9898) * 43758.5453;
+      return s - Math.floor(s);
+    }
+
+    function alloc() {
+      measureCell();
+
+      const styles = getComputedStyle(screen);
+      const padX =
+        parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+      const padY =
+        parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+
+      const vw = window.innerWidth - padX;
+      const vh = window.innerHeight - padY;
+
+      cols = Math.max(24, Math.floor(vw / cellW));
+      rows = Math.max(16, Math.floor(vh / cellH));
+
+      const n = cols * rows;
+      I = new Float32Array(n);
+      E = new Float32Array(n);
+      nextI = new Float32Array(n);
+      nextE = new Float32Array(n);
+
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const k = idx(x, y);
+          const nx = x / cols;
+          const ny = y / rows;
+          const base =
+            0.22 * Math.sin(nx * 8.0 + ny * 4.6) +
+            0.18 * Math.cos(nx * 5.2 - ny * 7.4) +
+            0.12 * Math.sin((nx + ny) * 12.0) +
+            (rand(k + 1.234) - 0.5) * 0.18;
+          const shell =
+            0.2 * Math.cos(nx * 9.4 - ny * 5.6) +
+            0.15 * Math.sin(nx * 6.7 + ny * 8.2) +
+            (rand(k + 9.876) - 0.5) * 0.18;
+          I[k] = base;
+          E[k] = shell + (rand(k + 2.5) - 0.5) * mix;
+        }
+      }
+    }
+
+    function neighborCrossSum(field, x, y) {
+      return field[idx(wrapX(x + 1), y)] + field[idx(wrapX(x - 1), y)] + field[idx(x, wrapY(y + 1))] + field[idx(x, wrapY(y - 1))];
+    }
+
+    function fieldGradient(field, x, y) {
+      const l = field[idx(wrapX(x - 1), y)];
+      const r = field[idx(wrapX(x + 1), y)];
+      const u = field[idx(x, wrapY(y - 1))];
+      const d = field[idx(x, wrapY(y + 1))];
+      return { gx: 0.5 * (r - l), gy: 0.5 * (d - u) };
+    }
+
+    function clamp(v, lo, hi) {
+      return Math.max(lo, Math.min(hi, v));
+    }
+
+    function step(t) {
+      const tt = t * 0.001;
+      const n = cols * rows;
+
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const k = idx(x, y);
+          const nx = x / cols;
+          const ny = y / rows;
+
+          const iVal = I[k];
+          const eVal = E[k];
+          const mismatch = iVal - eVal;
+
+          const gI = mismatch + 0.42 * (4 * iVal - neighborCrossSum(E, x, y));
+          const gE = -mismatch + 0.42 * (4 * eVal - neighborCrossSum(I, x, y));
+
+          let dI = q * gE - alpha * gI;
+          let dE = -q * gI - alpha * gE;
+
+          // gentle endogenous/exogenous breathing so idle never collapses to uniformity
+          const waveA = 0.015 * Math.sin(nx * 10.0 + tt * 0.9) * Math.cos(ny * 7.0 - tt * 0.6);
+          const waveB = 0.014 * Math.cos(nx * 8.0 - tt * 0.7) * Math.sin(ny * 11.0 + tt * 0.45);
+          dI += waveA;
+          dE += waveB + mix * 0.04 * Math.sin((nx - ny) * 14.0 + tt * 0.5);
+
+          // hover perturbation acts as exogenous pulse with slight swirl
+          if (pointer.intensity > 0.001) {
+            const px = pointer.x / cellW;
+            const py = pointer.y / cellH;
+            const dx = x - px;
+            const dy = y - py;
+            const r2 = dx * dx + dy * dy;
+            const reach = 90;
+            const falloff = Math.exp(-r2 / reach);
+            const swirl = pointer.vx * (-dy) + pointer.vy * dx;
+            dE += falloff * (0.22 * pointer.intensity + 0.045 * swirl);
+            dI -= falloff * (0.06 * pointer.intensity);
+          }
+
+          nextI[k] = clamp(iVal + 0.032 * dI, -2.4, 2.4);
+          nextE[k] = clamp(eVal + 0.032 * dE, -2.4, 2.4);
+        }
+      }
+
+      const tmpI = I; I = nextI; nextI = tmpI;
+      const tmpE = E; E = nextE; nextE = tmpE;
+      pointer.intensity *= pointer.active ? 0.985 : 0.94;
+      if (pointer.intensity < 0.0005) pointer.intensity = 0;
+    }
+
+    function glyphFor(x, y, t) {
+      const k = idx(x, y);
+      const iVal = I[k];
+      const eVal = E[k];
+      const mismatch = Math.abs(iVal - eVal);
+
+      const gi = fieldGradient(I, x, y);
+      const ge = fieldGradient(E, x, y);
+
+      const vx = q * ge.gx - alpha * gi.gx;
+      const vy = q * ge.gy - alpha * gi.gy;
+      const mag = Math.hypot(vx, vy);
+      const curlish = Math.abs(ge.gy - gi.gx);
+
+      const angle = Math.atan2(vy, vx);
+      let dirIndex = Math.round(((angle + Math.PI) / (2 * Math.PI)) * 8) % 8;
+      if (dirIndex < 0) dirIndex += 8;
+
+      const stress = mismatch * 1.9 + curlish * 0.9 + mag * 0.55;
+      const densityIndex = clamp(Math.floor(stress * 2.2), 0, densityChars.length - 1);
+
+      if (stress < 0.12) return densityChars[0];
+      if (stress < 0.26) return densityChars[1];
+      if (stress < 0.42) return dirChars[dirIndex];
+      if (stress < 0.72) return densityChars[Math.max(3, densityIndex)];
+      if (stress < 1.05) return densityChars[Math.max(6, densityIndex)];
+      return densityChars[densityIndex];
+    }
+
+    function render(t) {
+      step(t);
+      let out = '';
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          out += glyphFor(x, y, t);
+        }
+        out += '\n';
+      }
+      screen.textContent = out;
+      requestAnimationFrame(render);
+    }
+
+    function updateOutputs() {
+      alphaOut.value = Number(alpha).toFixed(3);
+      qOut.value = Number(q).toFixed(3);
+      mixOut.value = Number(mix).toFixed(3);
+    }
+
+    alphaInput.addEventListener('input', () => {
+      alpha = Number(alphaInput.value);
+      updateOutputs();
+    });
+
+    qInput.addEventListener('input', () => {
+      q = Number(qInput.value);
+      updateOutputs();
+    });
+
+    mixInput.addEventListener('input', () => {
+      mix = Number(mixInput.value);
+      updateOutputs();
+    });
+
+    function onPointerMove(e) {
+      const nx = e.clientX;
+      const ny = e.clientY;
+      pointer.vx = nx - pointer.lastX;
+      pointer.vy = ny - pointer.lastY;
+      pointer.lastX = nx;
+      pointer.lastY = ny;
+      pointer.x = nx;
+      pointer.y = ny;
+      pointer.active = true;
+      pointer.intensity = Math.min(2.4, pointer.intensity + 0.22 + Math.hypot(pointer.vx, pointer.vy) * 0.02);
+    }
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerleave', () => { pointer.active = false; });
+    window.addEventListener('pointerup', () => { pointer.active = false; });
+    window.addEventListener('blur', () => { pointer.active = false; });
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => alloc(), 80);
+    });
+
+    alloc();
+    updateOutputs();
+    window.addEventListener('load', () => {
+      alloc();
+    });
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        alloc();
+      });
+    }
+    requestAnimationFrame(render);
+  </script>
+</body>
+</html>
